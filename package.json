@@ -1,0 +1,26 @@
+{
+  "name": "bluez-avrcp-rest",
+  "version": "0.0.1",
+  "description": "A rest service to control connected Bluetooth audio devices over AVRCP",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "postinstall": "npm run build",
+    "start": "node src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bluez",
+    "avrcp",
+    "rest"
+  ],
+  "author": "Vladimir Kotikov",
+  "license": "MIT",
+  "dependencies": {
+    "dbus": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.12",
+    "typescript": "^2.2.2"
+  }
+}
