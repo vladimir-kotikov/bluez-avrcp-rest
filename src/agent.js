@@ -1,7 +1,7 @@
 const DBus = require("dbus");
 
 const AGENT_PATH = '/io/github/vlkoti/bthpairer';
-const AGENT_CAPABILITY = 'KeyboardDisplay';
+const AGENT_CAPABILITY = 'DisplayYesNo';
 
 let pairingService = DBus.registerService('system', 'io.github.vlkoti.bthpairer');
 let paringServiceObj = pairingService.createObject(AGENT_PATH);
@@ -68,7 +68,7 @@ let pairingServiceImpl = paringServiceObj.createInterface('org.bluez.Agent1');
     // @dbus.service.method(AGENT_INTERFACE, in_signature = "ou", out_signature = "")
     // def RequestConfirmation(self, device, passkey):
     pairingServiceImpl.addMethod('RequestConfirmation', {
-        in: [DBus.Define(String), DBus.Define(Number)]
+        in: [{ type: 'o' }, { type: 'u' }]
     }, (device, passkey, callback) => {
         // Not implemented
         console.log('RequestConfirmation', device, passkey);
@@ -95,29 +95,4 @@ let pairingServiceImpl = paringServiceObj.createInterface('org.bluez.Agent1');
 
     pairingServiceImpl.update();
 
-})()
-
-const systemBus = DBus.getBus('system');
-let bluez = systemBus.getInterface('org.bluez', '/org/bluez', 'org.bluez.AgentManager1', (err, agentManager) => {
-    if (err) {
-        throw err;
-    }
-
-    console.log('org.bluez', '/org/bluez', 'org.bluez.AgentManager1');
-    agentManager.RegisterAgent(AGENT_PATH, AGENT_CAPABILITY, (err, result) => {
-        if (err) {
-            // throw err;
-            console.error(err);
-        }
-
-        console.log('agentManager.RegisterAgent', AGENT_PATH, AGENT_CAPABILITY, result);
-        agentManager.RequestDefaultAgent(AGENT_PATH, (err, result) => {
-            if (err) {
-                // throw err;
-                console.error(err);
-            }
-
-            console.log('agentManager.RequestDefaultAgent', AGENT_PATH, result);
-        });
-    });
-});
+})();

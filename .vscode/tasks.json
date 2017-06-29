@@ -1,0 +1,29 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "tasks": [
+        {
+            "command": "ssh",
+            "isShellCommand": true,
+            "taskName": "start:remote",
+            "args": [
+                "-t",
+                "-L5858:127.0.0.1:5858",
+                "rpi",
+                "\"node ~/bluez-avrcp-rest/src/agent.js --inspect-brk\""
+            ],
+            "showOutput": "always"
+        },
+        {
+            "command": "npm",
+            "args": [
+                "run", "deploy"
+            ],
+            "isShellCommand": true,
+            "isBuildCommand": true,
+            "suppressTaskName": true,
+            "taskName": "deploy"
+        }
+    ]
+}
