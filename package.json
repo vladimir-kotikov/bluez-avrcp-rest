@@ -9,8 +9,14 @@
     "start": "node src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vladimir-kotikov/bluez-avrcp-rest.git"
+  },
   "keywords": [
-    "bluez", "agent", "avrcp"
+    "bluez",
+    "agent",
+    "avrcp"
   ],
   "author": "Vladimir Kotikov",
   "license": "MIT",
