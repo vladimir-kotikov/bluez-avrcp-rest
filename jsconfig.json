@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "checkJs": true,
+        "module": "commonjs",
+        "noUnusedLocals": true,
+        "target": "es6"
+    },
+    "exclude": [
+        "node_modules/**"
+    ],
+    "typeAcquisition": {
+        "enable": true
+    }
+}

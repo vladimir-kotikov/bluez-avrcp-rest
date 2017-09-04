@@ -8,9 +8,16 @@
             "type": "node",
             "request": "attach",
             "protocol": "inspector",
-            "name": "Attach to Remote",
-            "address": "192.168.1.73",
-            "port": 9229,
+            "name": "Debug remotely",
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "/home/pi/bluez-avrcp-rest",
+            "preLaunchTask": "Run debug"
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "protocol": "inspector",
+            "name": "Attach to remote app",
             "localRoot": "${workspaceRoot}",
             "remoteRoot": "/home/pi/bluez-avrcp-rest"
         }
