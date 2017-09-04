@@ -1,98 +1,127 @@
-const DBus = require("dbus");
+const PASSKEY = 123456
 
-const AGENT_PATH = '/io/github/vlkoti/bthpairer';
-const AGENT_CAPABILITY = 'DisplayYesNo';
+const TAG = "[AGENT]"
+const AGENT_INTERFACE = 'org.bluez.Agent1';
+const AGENT_CAPABILITY = 'NoInputNoOutput';
 
-let pairingService = DBus.registerService('system', 'io.github.vlkoti.bthpairer');
-let paringServiceObj = pairingService.createObject(AGENT_PATH);
-let pairingServiceImpl = paringServiceObj.createInterface('org.bluez.Agent1');
+module.exports.AgentIface = {
+    name: AGENT_INTERFACE,
+    methods: {
+        Release: ['', '', [], []],
+        RequestPinCode: ['o', 's', ['requester_device'], ['pin_code']],
+        RequestPasskey: ['o', 'u', ['requester_device'], ['passkey']],
+        RequestConfirmation: ['ou', '', ['requester_device', 'passkey'], []],
+        RequestAuthorization: ['o', '', ['requester_device'], []],
+        AuthorizeService: ['os', '', ['requester_device', 'uuid'], []],
+        Cancel: ['', '', [], []]
+    }
+};
 
-// See https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/test/simple-agent
-// for reference implementation in Python
-(() => {
-    pairingServiceImpl.addMethod('Release', {}, (callback) => {
-        // Not implemented
-        callback();
-    });
+module.exports.AgenImpl ={
+    /**
+     * This method gets called when the service daemon
+     * unregisters the agent. An agent can use it to do
+     * cleanup tasks. There is no need to unregister the
+     * agent, because when this method gets called it has
+     * already been unregistered.
+     */
+    Release: () => {
+        console.log(TAG, "Release");
+    },
 
-    pairingServiceImpl.addMethod('AuthorizeService', {
-        in: [DBus.Define(String), DBus.Define(String)]
-    }, (device, uuid, callback) => {
-        // Not implemented
-        console.log('AuthorizeService', device, uuid);
-        callback();
-    });
+    /**
+     *This method gets called when the service daemon
+     * needs to get the passkey for an authentication.
+     *
+     * The return value should be a string of 1- 16 characters
+     * length.The string can be alphanumeric.
+     *
+     * Possible errors: org.bluez.Error.Rejected
+     *                  org.bluez.Error.Canceled
+     *
+     * @memberof Agent
+     */
+    RequestPinCode: (device) => {
+        console.log(TAG, "RequestPinCode", device);
+        return "123456";
+    },
 
-    // @dbus.service.method(AGENT_INTERFACE, in_signature = "o", out_signature = "s")
-    // def RequestPinCode(self, device):
-    pairingServiceImpl.addMethod('RequestPinCode', {
-        in: [DBus.Define(String)],
-        out: DBus.Define(String)
-    }, (device, callback) => {
-        // Not implemented
-        console.log('RequestPinCode', device);
-        callback('1234');
-    });
+    /**
+     * This method gets called when the service daemon
+     * needs to get the passkey for an authentication.
+     *
+     * The return value should be a numeric value
+     * between 0-999999.
+     *
+     * Possible errors: org.bluez.Error.Rejected
+     *                  org.bluez.Error.Canceled
+     * @param {any} device
+     * @memberof Agent
+     */
+    RequestPasskey: (device) => {
+        console.log(TAG, "RequestPasskey", device);
+        return PASSKEY;
+    },
 
-    // @dbus.service.method(AGENT_INTERFACE, in_signature = "o", out_signature = "u")
-    // def RequestPasskey(self, device):
-    pairingServiceImpl.addMethod('RequestPasskey', {
-        in: [DBus.Define(String)],
-        out: DBus.Define(Number)
-    }, (device, callback) => {
-        // Not implemented
-        console.log('RequestPasskey', device);
-        callback(1234);
-    });
+    /**
+     * This method gets called when the service daemon
+     * needs to confirm a passkey for an authentication.
+     *
+     * To confirm the value it should return an empty reply
+     * or an error in case the passkey is invalid.
+     *
+     * Note that the passkey will always be a 6-digit number,
+     * so the display should be zero- padded at the start if
+     * the value contains less than 6 digits.
+     *
+     * Possible errors: org.bluez.Error.Rejected
+     *                  org.bluez.Error.Canceled
+     * @param {any} [object=device]
+     * @param {any} [uint32=passkey]
+     * @memberof Agent
+     */
+    RequestConfirmation: (device, passkey) => {
+        console.log(TAG, "RequestConfirmation", device, passkey);
+        if (passkey !== PASSKEY) {
+            throw "Passkey invalid";
+        }
+    },
 
-    // @dbus.service.method(AGENT_INTERFACE, in_signature = "ouq", out_signature = "")
-    // def DisplayPasskey(self, device, passkey, entered):
-    pairingServiceImpl.addMethod('DisplayPasskey', {
-        in: [DBus.Define(String), DBus.Define(Number), DBus.Define(Number)]
-    }, (device, passkey, entered, callback) => {
-        // Not implemented
-        console.log('DisplayPasskey', device, passkey, entered);
-        callback();
-    });
+    /**
+     * This method gets called to request the user to
+     * authorize an incoming pairing attempt which
+     * would in other circumstances trigger the just- works
+     * model.
+     *
+     * Possible errors: org.bluez.Error.Rejected
+     *                  org.bluez.Error.Canceled
+     * @param {any} [object=device]
+     * @memberof Agent
+     */
+    RequestAuthorization: (device) => {
+        console.log(TAG, "RequestAuthorization", device);
+    },
 
-    // @dbus.service.method(AGENT_INTERFACE, in_signature = "os", out_signature = "")
-    // def DisplayPinCode(self, device, pincode):
-    pairingServiceImpl.addMethod('DisplayPinCode', {
-        in: [DBus.Define(String), DBus.Define(String)]
-    }, (device, pincode, callback) => {
-        // Not implemented
-        console.log('DisplayPinCode', device, pincode);
-        callback();
-    });
+    /**
+     * This method gets called when the service daemon
+     * needs to authorize a connection/service request.
+     *
+     * Possible errors: org.bluez.Error.Rejected
+     *                  org.bluez.Error.Canceled
+     * @param {any} [object=device]
+     * @param {any} [string=uuid]
+     * @memberof Agent
+     */
+    AuthorizeService: (device, uuid) => {
+        console.log(TAG, "AuthorizeService", device, uuid);
+    },
 
-    // @dbus.service.method(AGENT_INTERFACE, in_signature = "ou", out_signature = "")
-    // def RequestConfirmation(self, device, passkey):
-    pairingServiceImpl.addMethod('RequestConfirmation', {
-        in: [{ type: 'o' }, { type: 'u' }]
-    }, (device, passkey, callback) => {
-        // Not implemented
-        console.log('RequestConfirmation', device, passkey);
-        callback();
-    });
-
-    // @dbus.service.method(AGENT_INTERFACE, in_signature = "o", out_signature = "")
-    // def RequestAuthorization(self, device):
-    pairingServiceImpl.addMethod('RequestAuthorization', {
-        in: [DBus.Define(String)]
-    }, (device, callback) => {
-        // Not implemented
-        console.log('RequestAuthorization', device);
-        callback();
-    });
-
-    // @dbus.service.method(AGENT_INTERFACE, in_signature = "", out_signature = "")
-    // def Cancel(self):
-    pairingServiceImpl.addMethod('Cancel', {}, (callback) => {
-        // Not implemented
-        console.log('Cancel');
-        callback();
-    });
-
-    pairingServiceImpl.update();
-
-})();
+    /**
+     * This method gets called to indicate that the agent
+     * request failed before a reply was returned.
+     * @memberof Agent
+     */
+    Cancel: () => {
+        console.log(TAG, "Cancel");
+    }
+}
