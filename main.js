@@ -1,1 +1,1 @@
-require("./src/register_agent");
+require("./src/avrcp");

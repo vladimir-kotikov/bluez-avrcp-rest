@@ -5,8 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "deploy": "rsync -rltzC --delete --exclude=node_modules ~/repos/personal/rpi/bluez-avrcp-rest rpi:~/",
-    "debug:remote": "ssh -t -L 9229:localhost:9229 rpi \"sudo node --inspect-brk ~/bluez-avrcp-rest/main.js\"",
-    "start:remote": "ssh -t rpi \"sudo node ~/bluez-avrcp-rest/main.js\"",
+    "debug:remote": "ssh -t -L 9229:localhost:9229 rpi \"sudo node --harmony --inspect-brk ~/bluez-avrcp-rest/main.js\"",
+    "start:remote": "ssh -t rpi \"sudo node --harmony ~/bluez-avrcp-rest/main.js\"",
     "start": "node src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
