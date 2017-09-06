@@ -1,23 +1,22 @@
 const PASSKEY = 123456
 
 const TAG = "[AGENT]"
-const AGENT_INTERFACE = 'org.bluez.Agent1';
-const AGENT_CAPABILITY = 'NoInputNoOutput';
+const AGENT_INTERFACE = "org.bluez.Agent1";
 
-module.exports.AgentIface = {
+export const AgentIface = {
     name: AGENT_INTERFACE,
     methods: {
-        Release: ['', '', [], []],
-        RequestPinCode: ['o', 's', ['requester_device'], ['pin_code']],
-        RequestPasskey: ['o', 'u', ['requester_device'], ['passkey']],
-        RequestConfirmation: ['ou', '', ['requester_device', 'passkey'], []],
-        RequestAuthorization: ['o', '', ['requester_device'], []],
-        AuthorizeService: ['os', '', ['requester_device', 'uuid'], []],
-        Cancel: ['', '', [], []]
+        Release: ["", "", [], []],
+        RequestPinCode: ["o", "s", ["requester_device"], ["pin_code"]],
+        RequestPasskey: ["o", "u", ["requester_device"], ["passkey"]],
+        RequestConfirmation: ["ou", "", ["requester_device", "passkey"], []],
+        RequestAuthorization: ["o", "", ["requester_device"], []],
+        AuthorizeService: ["os", "", ["requester_device", "uuid"], []],
+        Cancel: ["", "", [], []]
     }
 };
 
-module.exports.AgenImpl ={
+export class AgenImpl {
     /**
      * This method gets called when the service daemon
      * unregisters the agent. An agent can use it to do
@@ -25,9 +24,9 @@ module.exports.AgenImpl ={
      * agent, because when this method gets called it has
      * already been unregistered.
      */
-    Release: () => {
+    static Release () {
         console.log(TAG, "Release");
-    },
+    }
 
     /**
      *This method gets called when the service daemon
@@ -41,10 +40,10 @@ module.exports.AgenImpl ={
      *
      * @memberof Agent
      */
-    RequestPinCode: (device) => {
+    static RequestPinCode (device: any) {
         console.log(TAG, "RequestPinCode", device);
         return "123456";
-    },
+    }
 
     /**
      * This method gets called when the service daemon
@@ -58,10 +57,10 @@ module.exports.AgenImpl ={
      * @param {any} device
      * @memberof Agent
      */
-    RequestPasskey: (device) => {
+    static RequestPasskey (device: any): number {
         console.log(TAG, "RequestPasskey", device);
         return PASSKEY;
-    },
+    }
 
     /**
      * This method gets called when the service daemon
@@ -80,12 +79,12 @@ module.exports.AgenImpl ={
      * @param {any} [uint32=passkey]
      * @memberof Agent
      */
-    RequestConfirmation: (device, passkey) => {
+    static RequestConfirmation (device: any, passkey: number) {
         console.log(TAG, "RequestConfirmation", device, passkey);
         if (passkey !== PASSKEY) {
             throw "Passkey invalid";
         }
-    },
+    }
 
     /**
      * This method gets called to request the user to
@@ -98,9 +97,9 @@ module.exports.AgenImpl ={
      * @param {any} [object=device]
      * @memberof Agent
      */
-    RequestAuthorization: (device) => {
+    static RequestAuthorization (device: any) {
         console.log(TAG, "RequestAuthorization", device);
-    },
+    }
 
     /**
      * This method gets called when the service daemon
@@ -112,16 +111,16 @@ module.exports.AgenImpl ={
      * @param {any} [string=uuid]
      * @memberof Agent
      */
-    AuthorizeService: (device, uuid) => {
+    static AuthorizeService (device: any, uuid: string) {
         console.log(TAG, "AuthorizeService", device, uuid);
-    },
+    }
 
     /**
      * This method gets called to indicate that the agent
      * request failed before a reply was returned.
      * @memberof Agent
      */
-    Cancel: () => {
+    static Cancel () {
         console.log(TAG, "Cancel");
     }
 }
