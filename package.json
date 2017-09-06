@@ -2,16 +2,9 @@
   "name": "bluez-avrcp-rest",
   "version": "0.0.1",
   "description": "A rest service to control connected Bluetooth audio devices over AVRCP",
-  "main": "src/main.js",
-  "scripts": {
-    "build": "tsc -p .",
-    "lint": "tslint --project . --type-check",
-    "deploy": "rsync -rltzC --delete --exclude=node_modules ~/repos/personal/rpi/bluez-avrcp-rest rpi:~/",
-    "debug:remote": "ssh -t -L 9229:localhost:9229 rpi \"sudo node --harmony --inspect-brk ~/bluez-avrcp-rest/main.js\"",
-    "start:remote": "ssh -t rpi \"sudo node --harmony ~/bluez-avrcp-rest/main.js\"",
-    "start": "node src/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "index.js",
+  "author": "Vladimir Kotikov",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/vladimir-kotikov/bluez-avrcp-rest.git"
@@ -21,13 +14,27 @@
     "agent",
     "avrcp"
   ],
-  "author": "Vladimir Kotikov",
-  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p .",
+    "lint": "tslint --project . --type-check",
+    "deploy": "rsync -rltzC --delete --exclude=node_modules ~/repos/personal/rpi/bluez-avrcp-rest rpi:~/",
+    "debug:remote": "ssh -t -L 9229:localhost:9229 rpi \"sudo node --harmony --inspect-brk ~/bluez-avrcp-rest/main.js\"",
+    "start:remote": "ssh -t rpi \"sudo node --harmony ~/bluez-avrcp-rest/main.js\"",
+    "start": "node src/main.js",
+    "test": "npm run build && npm run lint && mocha test",
+    "postinstall": "npm run build"
+  },
   "dependencies": {
-    "dbus-native": "^0.2.2"
+    "dbus-native": "^0.2.2",
+    "serialport": "^4.0.7",
+    "strip-json-comments": "^2.0.1"
   },
   "devDependencies": {
+    "@types/mocha": "^2.2.42",
     "@types/node": "^8.0.26",
+    "@types/serialport": "^4.0.9",
+    "@types/strip-json-comments": "0.0.30",
+    "mocha": "^3.5.0",
     "tslint": "^5.7.0",
     "typescript": "^2.5.2"
   }

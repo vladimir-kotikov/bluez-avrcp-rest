@@ -53,6 +53,20 @@
             "problemMatcher": [
                 "$tslint5"
             ]
+        },
+        {
+            "taskName": "Test",
+            "identifier": "Test",
+            "type": "shell",
+            "command": "npm",
+            "args": [
+                "test"
+            ],
+            "dependsOn": "Build",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
         }
     ]
 }

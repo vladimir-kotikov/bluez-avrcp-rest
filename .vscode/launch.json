@@ -20,6 +20,17 @@
             "name": "Attach to remote app",
             "localRoot": "${workspaceRoot}",
             "remoteRoot": "/home/pi/bluez-avrcp-rest"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "protocol": "inspector",
+            "name": "Debug sniffer",
+            "program": "${workspaceRoot}/bin/sniffer.js",
+            "outFiles": [
+                "${workspaceRoot}/**/*.js"
+            ],
+            "preLaunchTask": "Build"
         }
     ]
 }

@@ -1,0 +1,145 @@
+## Doors locaked from the board
+
+EcuID: 100 :
+EcuID: 145 : 20 00 01 28 00 04 00 00
+EcuID: 635 : 01 08 00 00 00 00 00 00
+EcuID: 305 : 00 00 00 00 10 10 01
+EcuID: 230 : 00 00 00 00 00 00 00
+EcuID: 370 : 02 01 00 00 00 00 00 00
+EcuID: 135 : bc 00 4d 81
+EcuID: 235 : 00 00
+EcuID: 305 : 00 00 00 00 10 10 00
+EcuID: 230 : 05 00 00 00 00 09 00
+EcuID: 135 : 3c 00 4d 81
+EcuID: 11a : c0 00 40 80 01 00 00
+EcuID: 500 : 00 60
+EcuID: 635 : 00 08 00 00 00 00 00 00
+EcuID: 631 : 00 08 00 00 00 00 00 00
+EcuID: 500 : 00 61
+
+## Doors unlocked from board
+EcuID: 635 : 01 08 00 00 00 00 00 00
+EcuID: 305 : 00 00 00 00 10 10 01
+EcuID: 135 : 7c 00 4d 81
+EcuID: 230 : 00 00 00 00 00 00 00
+EcuID: 135 : 3c 00 4d 81
+EcuID: 305 : 00 00 00 00 10 10 00
+EcuID: 500 : 00 60
+EcuID: 500 : 00 61
+
+
+## Doors unlocked from key (no actual unlock since already unlocked)
+EcuID: 100 :
+EcuID: 625 : 01 08 00 00 00 00 00 00
+EcuID: 11a : c0 00 40 80 01 00 00
+EcuID: 145 : 20 00 01 28 00 04 00 00
+EcuID: 170 : 60 f6 1b 00
+EcuID: 230 : 00 00 00 00 00 00 00
+EcuID: 370 : 02 01 00 00 00 00 00 00
+EcuID: 305 : 00 00 00 00 10 10 00
+EcuID: 625 : 00 08 00 00 00 00 00 00
+EcuID: 160 : 02 00 f6 1b
+EcuID: 500 : 00 61
+EcuID: 235 : 00 00
+
+### Unlocked from key (no actual unlock)
+EcuID: 100 :
+EcuID: 625 : 01 08 00 00 00 00 00 00
+EcuID: 11a : c0 00 40 80 01 00 00
+EcuID: 145 : 20 00 01 28 00 04 00 00
+EcuID: 170 : 60 f6 1b 00
+EcuID: 230 : 00 00 00 00 00 00 00
+EcuID: 370 : 02 01 00 00 00 00 00 00
+EcuID: 305 : 00 00 00 00 10 10 00
+EcuID: 235 : 00 00
+EcuID: 625 : 00 08 00 00 00 00 00 00
+EcuID: 500 : 00 61
+
+
+# Locked from key (actually locked)
+
+EcuID: 100 :
+EcuID: 625 : 01 08 00 00 00 00 00 00
+EcuID: 11a : c0 00 40 80 01 00 00
+EcuID: 145 : 20 00 01 28 00 04 00 00
+EcuID: 170 : 20 00 00 00
+EcuID: 230 : 00 00 00 00 00 00 00
+EcuID: 370 : 02 01 00 00 00 00 00 00
+EcuID: 305 : 00 00 00 00 10 10 00
+EcuID: 235 : 00 00
+EcuID: 135 : bc 06 4d 81
+EcuID: 631 : 01 00 20 00 00 00 00 00
+EcuID: 625 : 00 08 00 00 00 00 00 00
+EcuID: 160 : 02 00 f6 1b
+EcuID: 175 : 00 00 00 00 00 00 00 00
+EcuID: 230 : 05 00 00 00 00 09 00
+EcuID: 135 : 3c 06 4d 81
+EcuID: 260 : 00 00 00
+EcuID: 500 : 00 60
+EcuID: 631 : 00 08 00 00 00 00 00 00
+
+## Unlocked from key (actual unlock)
+
+EcuID: 100 :
+EcuID: 625 : 01 08 00 00 00 00 00 00
+EcuID: 11a : c0 00 40 80 01 00 00
+EcuID: 145 : 20 00 01 28 00 04 00 00
+EcuID: 230 : 05 00 00 00 00 09 00
+EcuID: 370 : 02 01 00 00 00 00 00 00
+EcuID: 305 : 00 00 00 00 10 10 00
+EcuID: 235 : 00 00
+EcuID: 635 : 01 00 40 00 00 00 00 00
+EcuID: 631 : 01 04 20 00 00 00 00 00
+EcuID: 625 : 00 08 00 00 00 00 00 00
+EcuID: 175 : 00 00 00 00 00 00 00 00
+EcuID: 340 : 00 00
+EcuID: 230 : 00 00 00 00 00 00 00
+EcuID: 260 : 7f 32 7f
+EcuID: 370 : 02 03 00 00 00 00 00 00
+EcuID: 235 : 00 0c
+EcuID: 425 : 02
+EcuID: 235 : 00 1d
+EcuID: 235 : 00 2e
+EcuID: 235 : 00 3f
+EcuID: 235 : 00 50
+EcuID: 235 : 00 61
+EcuID: 235 : 00 72
+EcuID: 235 : 00 83
+EcuID: 235 : 00 94
+EcuID: 500 : 00 60
+EcuID: 235 : 00 a5
+EcuID: 235 : 00 b6
+EcuID: 235 : 00 c7
+EcuID: 235 : 00 d8
+EcuID: 235 : 00 e9
+EcuID: 235 : 00 fa
+EcuID: 235 : 00 ff
+EcuID: 631 : 00 08 00 00 00 00 00 00
+EcuID: 635 : 00 08 40 00 00 00 00 00
+EcuID: 360 : 00 00 00
+
+## Left front door opened
+EcuID: 100 :
+EcuID: 631 : 01 08 00 00 00 00 00 00
+EcuID: 370 : 02 03 00 00 00 00 00 00
+EcuID: 305 : 00 00 00 00 10 10 00
+EcuID: 235 : 00 00
+EcuID: 145 : 20 00 01 28 00 04 00 00
+EcuID: 11a : c0 00 40 80 01 00 00
+EcuID: 230 : 00 00 40 00 00 00 00
+EcuID: 500 : 00 61
+
+## Left front door closed
+
+EcuID: 100 :
+EcuID: 631 : 01 08 00 00 00 00 00 00
+EcuID: 145 : 20 00 01 28 00 04 00 00
+EcuID: 230 : 00 00 00 00 00 00 00
+EcuID: 11a : c0 00 40 80 01 00 00
+EcuID: 370 : 02 03 00 00 00 00 00 00
+EcuID: 305 : 00 00 00 00 10 10 00
+EcuID: 235 : 00 00
+EcuID: 500 : 00 61
+
+
+

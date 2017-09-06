@@ -1,2 +1,7 @@
+*.log
+logs
+.canfilters
 node_modules
+bin/**/*.js
 src/**/*.js
+test/**/*.js
