@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "strict": true,
+        "inlineSourceMap": true,
+        "noUnusedLocals": true
+    },
+    "exclude": [
+        "node_modules/**"
+    ]
+}

@@ -4,6 +4,8 @@
   "description": "A rest service to control connected Bluetooth audio devices over AVRCP",
   "main": "src/main.js",
   "scripts": {
+    "build": "tsc -p .",
+    "lint": "tslint --project . --type-check",
     "deploy": "rsync -rltzC --delete --exclude=node_modules ~/repos/personal/rpi/bluez-avrcp-rest rpi:~/",
     "debug:remote": "ssh -t -L 9229:localhost:9229 rpi \"sudo node --harmony --inspect-brk ~/bluez-avrcp-rest/main.js\"",
     "start:remote": "ssh -t rpi \"sudo node --harmony ~/bluez-avrcp-rest/main.js\"",
@@ -23,5 +25,10 @@
   "license": "MIT",
   "dependencies": {
     "dbus-native": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.26",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.2"
   }
 }
