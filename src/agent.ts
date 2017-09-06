@@ -1,10 +1,15 @@
+import { DBus, InterfaceDefinition } from "dbus-native";
+import { AgentManager } from "./bluez/AgentManager";
+
 const PASSKEY = 123456
 
 const TAG = "[AGENT]"
-const AGENT_INTERFACE = "org.bluez.Agent1";
+const AGENT_PATH = "/io/github/vlkoti/bthagent";
+const AGENT_NAME = "io.github.vlkoti.bthagent";
+const AGENT_CAPABILITY = "NoInputNoOutput";
 
-export const AgentIface = {
-    name: AGENT_INTERFACE,
+export const INTERFACE_DEFINITION: InterfaceDefinition = {
+    name: "org.bluez.Agent1",
     methods: {
         Release: ["", "", [], []],
         RequestPinCode: ["o", "s", ["requester_device"], ["pin_code"]],
@@ -16,7 +21,24 @@ export const AgentIface = {
     }
 };
 
-export class AgenImpl {
+export class Agent {
+    public static async register(bus: DBus): Promise<void> {
+        const requestName = new Promise((resolve, reject) => {
+            bus.requestName(AGENT_NAME, 0, (err: any) => {
+                err ? reject(err) : resolve();
+            });
+        });
+
+        await requestName;
+
+        bus.exportInterface(Agent, AGENT_PATH, INTERFACE_DEFINITION);
+        const agentManager = new AgentManager(bus);
+
+        await agentManager.RegisterAgent(AGENT_PATH, AGENT_CAPABILITY);
+        await agentManager.RequestDefaultAgent(AGENT_PATH);
+        console.log(TAG, "Agent registered");
+    }
+
     /**
      * This method gets called when the service daemon
      * unregisters the agent. An agent can use it to do
@@ -40,9 +62,9 @@ export class AgenImpl {
      *
      * @memberof Agent
      */
-    static RequestPinCode (device: any) {
+    static RequestPinCode (device: any): string {
         console.log(TAG, "RequestPinCode", device);
-        return "123456";
+        return PASSKEY.toString();
     }
 
     /**

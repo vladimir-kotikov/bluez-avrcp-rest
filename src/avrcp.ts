@@ -1,5 +1,5 @@
 import * as dbus from "dbus-native";
-import { MediaControl } from "./mediacontrol";
+import { MediaControl } from "./bluez/MediaControl";
 
 const TAG = "[AVRCP]"
 const ADAPTER = "hci0";
