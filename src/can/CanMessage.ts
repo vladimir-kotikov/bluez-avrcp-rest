@@ -11,8 +11,8 @@ function padLeft(str: string, expectedWidth: number, char: string = " ") {
 export class CanMessage {
     public extended: boolean = false;
     public rtr: boolean = false;
-    public arbitrationId: number;
-    public ecuId: number;
+    public arbitrationId: number = 0;
+    public ecuId: number = 0;
     public length: number = 0;
     public data: number[] = [];
 
@@ -27,7 +27,9 @@ export class CanMessage {
 
         const header = (parcel.readUInt16BE(2) << 16) | parcel.readUInt16BE(4);
         result.ecuId = readBits(0, 11, header);
-        result.arbitrationId = result.extended ? readBits(12, 29, header) : 0;
+        if (result.extended) {
+            result.arbitrationId = readBits(12, 29, header);
+        }
 
         for (let i = 0; i < result.length; i++) {
             result.data[i] = parcel.readUInt8(6 + i);

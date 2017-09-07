@@ -16,13 +16,13 @@ export class AgentManager extends DBusProxy {
     }
 
     public UnregisterAgent(agentPath: string) {
-        return this.invokeMethod("RegisterAgent", {
+        return this.invokeMethod("UnregisterAgent", {
             body: [agentPath],
             signature: "o"
         });
     }
     public RequestDefaultAgent(agentPath: string) {
-        return this.invokeMethod("RegisterAgent", {
+        return this.invokeMethod("RequestDefaultAgent", {
             body: [agentPath],
             signature: "o"
         });

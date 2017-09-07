@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { readBit, readBits } from "../src/binaryUtils";
+import { readBit, readBits } from "../src/can/binaryUtils";
 
 describe("Binary operations", () => {
     it("Should be able to take first bit of number", () => {

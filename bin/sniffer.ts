@@ -1,8 +1,8 @@
 import * as path from "path";
 import * as Serial from "serialport";
 
-import { CanMessage } from "../src/CanMessage";
-import { FilterCollection } from "../src/FiltersCollection";
+import { CanMessage } from "../src/can/CanMessage";
+import { FilterCollection } from "../src/can/FiltersCollection";
 
 const TAG = "[main]";
 const DEBUG = process.argv.indexOf("--debug") >= 2;

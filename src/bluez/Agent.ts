@@ -1,9 +1,9 @@
 import { DBus, InterfaceDefinition } from "dbus-native";
-import { AgentManager } from "./bluez/AgentManager";
+import { AgentManager } from "./AgentManager";
 
 const PASSKEY = 123456
 
-const TAG = "[AGENT]"
+const TAG = "[AGNT]"
 const AGENT_PATH = "/io/github/vlkoti/bthagent";
 const AGENT_NAME = "io.github.vlkoti.bthagent";
 const AGENT_CAPABILITY = "NoInputNoOutput";
@@ -22,8 +22,10 @@ export const INTERFACE_DEFINITION: InterfaceDefinition = {
 };
 
 export class Agent {
+
     public static async register(bus: DBus): Promise<void> {
         const requestName = new Promise((resolve, reject) => {
+            console.log(TAG, `Requesting name for agent ${AGENT_NAME}`)
             bus.requestName(AGENT_NAME, 0, (err: any) => {
                 err ? reject(err) : resolve();
             });
@@ -34,6 +36,7 @@ export class Agent {
         bus.exportInterface(Agent, AGENT_PATH, INTERFACE_DEFINITION);
         const agentManager = new AgentManager(bus);
 
+        console.log(TAG, `Registering agent at ${AGENT_PATH}`);
         await agentManager.RegisterAgent(AGENT_PATH, AGENT_CAPABILITY);
         await agentManager.RequestDefaultAgent(AGENT_PATH);
         console.log(TAG, "Agent registered");
@@ -133,7 +136,8 @@ export class Agent {
      * @param {any} [string=uuid]
      * @memberof Agent
      */
-    static AuthorizeService (device: any, uuid: string) {
+    static AuthorizeService(device: any, uuid: string) {
+        // TODO: set paired and trusted properties for device
         console.log(TAG, "AuthorizeService", device, uuid);
     }
 

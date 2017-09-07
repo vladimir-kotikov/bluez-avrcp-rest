@@ -1,6 +1,6 @@
 import * as assert from "assert";
-import { CanMessage } from "../src/CanMessage";
-import { ChangingFilter } from "../src/filters/ChangingFilter";
+import { CanMessage } from "../src/can/CanMessage";
+import { ChangingFilter } from "../src/can/filters/ChangingFilter";
 
 const parcels = [
     CanMessage.fromRawParcel(Buffer.from([0x31, 0x01, 0x00, 0x00, 0x06, 0x25, 0x01])),

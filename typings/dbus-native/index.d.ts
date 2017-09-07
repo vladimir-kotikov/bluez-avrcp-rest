@@ -8,7 +8,8 @@ declare module 'dbus-native' {
         path: string;
         interface: string;
         body ?: any;
-        signature ?: string
+        signature?: string,
+        member?: string,
     }
 
     type MethodSignature = [string, string, string[], string[]];
