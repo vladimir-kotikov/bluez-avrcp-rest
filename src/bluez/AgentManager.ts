@@ -1,7 +1,7 @@
 import { DBus } from "dbus-native";
 import { DBusProxy } from "./DBusProxy";
 
-type AgentCapability = "NoInputNoOutput";
+type AgentCapability = "NoInputNoOutput" | "KeyboardDisplay";
 
 export class AgentManager extends DBusProxy {
     constructor(bus: DBus) {

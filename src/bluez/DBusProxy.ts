@@ -1,4 +1,6 @@
-import { DBus } from "dbus-native";
+import * as assert from "assert";
+import { DBus, DBusMessage } from "dbus-native";
+
 export abstract class DBusProxy {
     private payload: {
         destination: string;
@@ -9,19 +11,26 @@ export abstract class DBusProxy {
     };
 
     constructor(private bus: DBus, serviceName: string,
-        objectPath: string, interfaceName: string) {
+        objectPath: string, private interfaceName: string) {
 
         this.payload = {
             destination: serviceName,
             path: objectPath,
             interface: interfaceName
         }
+
+        assert(this.interfaceName !== undefined, "interfaceName must be defined");
+    }
+
+    private async invoke(message: DBusMessage): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.bus.invoke(message, (err, result) => err ? reject(err) : resolve(result));
+        });
     }
 
     protected async invokeMethod(methodName: string,
         additionalFields?: { body?: any, signature?: string }): Promise<any> {
 
-        return new Promise((resolve, reject) => {
             let message = {
                 ...this.payload,
                 member: methodName
@@ -34,7 +43,36 @@ export abstract class DBusProxy {
                 }
             }
 
-            this.bus.invoke(message, (err, result) => err ? reject(err) : resolve(result));
+            return this.invoke(message);
+    }
+
+    public async Get(propertyName: string) {
+        return this.invoke({
+            ...this.payload,
+            interface: "org.freedesktop.DBus.Properties",
+            member: "Get",
+            body: [this.interfaceName, propertyName],
+            signature: "ss"
+        });
+    }
+
+    public Set(propertyName: string, propertyValue: any) {
+        return this.invoke({
+            ...this.payload,
+            interface: "org.freedesktop.DBus.Properties",
+            member: "Set",
+            body: [this.interfaceName, propertyName, propertyValue],
+            signature: "ssv"
+        });
+    }
+
+    public GetAll() {
+        return this.invoke({
+            ...this.payload,
+            interface: "org.freedesktop.DBus.Properties",
+            member: "GetAll",
+            body: [this.interfaceName],
+            signature: "s"
         });
     }
 }

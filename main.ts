@@ -1,6 +1,6 @@
-import { CanMessage } from "./can/CanMessage";
-import { VehicleService } from "./VehicleService";
-import { BluetoothService } from "./BluetoothService";
+import { CanMessage } from "./src/can/CanMessage";
+import { VehicleService } from "./src/VehicleService";
+import { BluetoothService } from "./src/BluetoothService";
 
 const VEHICLE_DEFAULT_PORT: { [platform: string]: string } = {
     win32: "COM3",

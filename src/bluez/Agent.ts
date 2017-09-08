@@ -1,4 +1,5 @@
 import { DBus, InterfaceDefinition } from "dbus-native";
+import { Adapter } from "./Adapter";
 import { AgentManager } from "./AgentManager";
 
 const PASSKEY = 123456
@@ -6,7 +7,7 @@ const PASSKEY = 123456
 const TAG = "[AGNT]"
 const AGENT_PATH = "/io/github/vlkoti/bthagent";
 const AGENT_NAME = "io.github.vlkoti.bthagent";
-const AGENT_CAPABILITY = "NoInputNoOutput";
+const AGENT_CAPABILITY = "KeyboardDisplay";
 
 export const INTERFACE_DEFINITION: InterfaceDefinition = {
     name: "org.bluez.Agent1",
@@ -22,7 +23,6 @@ export const INTERFACE_DEFINITION: InterfaceDefinition = {
 };
 
 export class Agent {
-
     public static async register(bus: DBus): Promise<void> {
         const requestName = new Promise((resolve, reject) => {
             console.log(TAG, `Requesting name for agent ${AGENT_NAME}`)
@@ -40,6 +40,14 @@ export class Agent {
         await agentManager.RegisterAgent(AGENT_PATH, AGENT_CAPABILITY);
         await agentManager.RequestDefaultAgent(AGENT_PATH);
         console.log(TAG, "Agent registered");
+
+        const adapter = new Adapter(bus, "hci0");
+        console.log(TAG, "Setting Discoverable and Pairable for adapter");
+        // Below is a hack for node-dbus which doesn't allow to pass simple types as variants
+        adapter.Set("Discoverable", ["b", true]);
+        adapter.Set("DiscoverableTimeout", ["u", 0]);
+        adapter.Set("Pairable", ["b", true]);
+        adapter.Set("PairableTimeout", ["u", 0]);
     }
 
     /**
